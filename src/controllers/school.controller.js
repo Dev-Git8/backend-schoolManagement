@@ -1,6 +1,6 @@
 import prisma from "../config/db.js";
 
-// 📌 Utility: Haversine formula
+
 function getDistance(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth radius in km
 
@@ -16,7 +16,7 @@ function getDistance(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-// 🚀 POST /addSchool
+//  POST /addSchool
 export async function AddSchool(req, res) {
   try {
     const { name, address, latitude, longitude } = req.body;
@@ -36,7 +36,7 @@ export async function AddSchool(req, res) {
       });
     }
 
-    // ✅ Create school
+    
     const school = await prisma.school.create({
       data: {
         name: name.trim(),
@@ -62,7 +62,7 @@ export async function AddSchool(req, res) {
   }
 }
 
-// 🚀 GET /listSchools
+//  GET /listSchools
 export async function GetAllSchools(req, res) {
   try {
     const { latitude, longitude } = req.query;
@@ -85,10 +85,10 @@ export async function GetAllSchools(req, res) {
     const userLat = parseFloat(latitude);
     const userLon = parseFloat(longitude);
 
-    // ✅ Fetch schools
+    
     const schools = await prisma.school.findMany();
 
-    // ✅ Add distance + sort
+   
     const sortedSchools = schools
       .map((school) => ({
         ...school,
